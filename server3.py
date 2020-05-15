@@ -1,11 +1,16 @@
-import http.server as SimpleHTTPServer
-import socketserver as SocketServer
-import sys
+from http.server import SimpleHTTPRequestHandler
+from socketserver import TCPServer
+from sys import argv
 from  urllib import parse
 
-port = int(sys.argv[1])
 
-class GetHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+#Server port assignment
+port = int(argv[1])
+
+
+
+#inheritance of SimpleHTTPServer
+class GetHandler(SimpleHTTPRequestHandler):
 	def do_GET(self):
 		parsed_path = parse.urlparse(self.path)
 		message_parts = [
@@ -16,7 +21,7 @@ class GetHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             	'>command={}'.format(self.command),
             	'>path={}'.format(self.path),
             	'>real path={}'.format(parsed_path.path),
-            	'>query={}'.format(parsed_path.query),
+            	'>query=>{}'.format(parsed_path.query),
             	'>request_version={}'.format(self.request_version),
 		'',
            	'HEADERS RECEIVED:',
@@ -29,12 +34,11 @@ class GetHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 		message = '\r\n'.join(message_parts)
 		print(message)
 
-		SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
+		SimpleHTTPRequestHandler.do_GET(self)
 
-
-
-
-Handler = GetHandler
-with SocketServer.TCPServer(("", port), Handler) as httpd:
-	print ("Starting server at port", port)
-	httpd.serve_forever()
+try: 
+	with TCPServer(("", port), GetHandler) as httpd:
+		print ("Starting server at port", port)
+		httpd.serve_forever()
+except:
+	print("\nConnection close")
