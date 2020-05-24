@@ -5,12 +5,11 @@ from  urllib import parse
 import threading
 import time
 
-
-
+#use: serverth2.py port
 
 #Server port assignment
 port = int(argv[1])
-control=0
+
 #inheritance of SimpleHTTPServer
 class Handler(SimpleHTTPRequestHandler):
 	def do_GET(self):
@@ -40,35 +39,17 @@ class Handler(SimpleHTTPRequestHandler):
 		print(cookie)
 		if(cookie):
 			print("Bye, your cookie is", cookie)
-			printer()
+			# server down
 			thread2.start()
-			#control = 1
-			#print("Se ha activado control con el valor", control)
-		
 
 		SimpleHTTPRequestHandler.do_GET(self)
 
+
+#main
+
 server= TCPServer(("", port), Handler)
-print("Empezamos")
-
+print("Start")
 thread=threading.Thread(target=server.serve_forever)
-
-
-#def fin():
-#	print("bye bye bye")
-#	server.shutdown()
-
-#thread2=threading.Thread(target=server.shutdown)
-#thread.daemon=True
 thread.start()
-print("estamos")
-def printer():
-	print(port)
-
-printer()
 thread2=threading.Thread(target=server.shutdown)
-
-#print("Empezando la cuenta atras")
-#time.sleep(120)
-#thread2.start()
 
