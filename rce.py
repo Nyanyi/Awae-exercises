@@ -3,7 +3,6 @@ from socketserver import TCPServer
 from sys import argv
 from  urllib import parse
 import threading
-import time
 import  requests
 
 
@@ -59,7 +58,6 @@ def command_test():
 
 class Handler(SimpleHTTPRequestHandler):
 	def do_GET(self):
-		global control
 		parsed_path = parse.urlparse(self.path)
 		message_parts = [
             	'CLIENT VALUES:',
