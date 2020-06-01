@@ -3,7 +3,6 @@ from socketserver import TCPServer
 from sys import argv
 from  urllib import parse
 import threading
-import time
 import  requests
 
 #exercice: https://pentesterlab.com/exercises/xss_and_mysql_file/course
