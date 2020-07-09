@@ -331,23 +331,52 @@ Y se obtiene el objeto php serializado:
 A continuación se realiza lo siguiente:
 
 1. En la petición POST/index.php se cambia el valor del parámetro "param" por el del objeto serializado:
+![tamper](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/tamper_object.png)
 
 2. Se comprueba que se ha creado el fichero shell.c de forma correcta:
+![shell_c](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/images_dic.png)
 
 3. Se establece una remote shell:
+![nc_shell](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/nc_shell.png)
 
 4. Sesión:
+![sesion](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/sesion_remota.png)
 
-### Fase 4: Elevación de privilegions
+
+### Fase 4: Elevación de privilegios
 
 Después de realizar la enumeración del sistema, se descubre que la mejor manera de realizar la elevación de privilegios es mediante la explotación de una vulnerabilidad de "wildcards" en TAR que sera ejecutado en un proceso cron con privilegios de root.
 
-- Proceso Cron
+Más informacion:
 
+	- https://www.gnu.org/software/tar/manual/html_section/tar_49.html
+	- https://gtfobins.github.io/gtfobins/tar/
+
+- Proceso Cron
+![cron](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/cron.png)
 
 - Script con el comando Tar con wildcars
+![wildcars](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/wildcards.png)
 
-La explotación se realiza de la siguiente manera:
+La elevación se realiza de la siguiente manera:
 
+1. Preparación de los ficheros necesarios:
 
+![elev_priv](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/elev_priv.png)
+
+![files_priv](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/files_elev.png)
+
+2. Ejecución de la bash con suid activado en /tmp:
+
+![root](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/root.png)
+
+3. Comprobación:
+![flag](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/flag.png)
+
+![flag_id](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/finish.png)
+
+4. Y ya por último, el fichero htaccess para entender pq funcionó el bypass:
+![htaccess](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/htaccess.png)
+
+Fin
 
