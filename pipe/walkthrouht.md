@@ -40,7 +40,7 @@ La máquina tiene la dirección IP: 172.16.113.51
 
 - Al acceder a la aplicación web se detecta que esta protegida por una auth basic:
 
-  ![auth_basic](/Users/nyanyi/Pictures/awae/pipe/auth_basic.png)
+ 
 
 - En este punto, se pueden llevar a cabo varios ataques:
 
@@ -64,11 +64,8 @@ La máquina tiene la dirección IP: 172.16.113.51
 
 - En el error 401 se indicaba que el realm era "index.php". Se realiza una prueba teniendo en cuenta el bypass de auth:
 
-  ![200_0k](/Users/nyanyi/Pictures/awae/pipe/200_0k.png)
-
-
-
-![web](/Users/nyanyi/Pictures/awae/pipe/web.png)
+  cvv
+  
 
  
 
