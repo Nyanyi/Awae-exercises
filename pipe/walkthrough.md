@@ -332,3 +332,22 @@ A continuación se realiza lo siguiente:
 
 1. En la petición POST/index.php se cambia el valor del parámetro "param" por el del objeto serializado:
 
+2. Se comprueba que se ha creado el fichero shell.c de forma correcta:
+
+3. Se establece una remote shell:
+
+4. Sesión:
+
+### Fase 4: Elevación de privilegions
+
+Después de realizar la enumeración del sistema, se descubre que la mejor manera de realizar la elevación de privilegios es mediante la explotación de una vulnerabilidad de "wildcards" en TAR que sera ejecutado en un proceso cron con privilegios de root.
+
+- Proceso Cron
+
+
+- Script con el comando Tar con wildcars
+
+La explotación se realiza de la siguiente manera:
+
+
+
