@@ -11,7 +11,7 @@
 
 ## Fase 1: Identificación y enumeración
 
-### Identificación de la dirección IP
+### Identificación de la dirección IP
 
 - Arp-scan
 
@@ -144,9 +144,7 @@ En base a los comentarios se comprueba que básicamente este script se utiliza p
   - La idea es que se podría crear un objeto LOG, con datos controlados por el usuario, serializarlo y enviarlo al servidor que hará el unmarshalling y ejecutará el código.
 
 - Fichero resultante:
-
-  
-
+```
       <?php
       
       class Log
@@ -182,29 +180,29 @@ En base a los comentarios se comprueba que básicamente este script se utiliza p
   function serialize(mixed_value) 
   {
 
-  ​    var val, key, okey,
-  ​    ktype = '',
-  ​    vals = '',
-  ​    count = 0,
-  ​    _utf8Size = function(str) {
-  ​      var size = 0,
-  ​        i = 0,
-  ​        l = str.length,
-  ​        code = '';
-  ​      for (i = 0; i < l; i++) {
-  ​        code = str.charCodeAt(i);
-  ​        if (code < 0x0080) {
-  ​          size += 1;
-  ​        } else if (code < 0x0800) {
-  ​          size += 2;
-  ​        } else {
-  ​          size += 3;
-  ​        }
-  ​      }
-  ​      return size;
-  ​    },
-  ​    _getType = function(inp) {
-  ​      var match, key, cons, types, type = typeof inp;
+  var val, key, okey,
+  ktype = '',
+  vals = '',
+  count = 0,
+  _utf8Size = function(str) {
+  var size = 0,
+  i = 0,
+  l = str.length,
+  code = '';
+  for (i = 0; i < l; i++) {
+  code = str.charCodeAt(i);
+  if (code < 0x0080) {
+  size += 1;
+  } else if (code < 0x0800) {
+  size += 2;
+  } else {
+  size += 3;
+  }
+  }
+  return size;
+  },
+  _getType = function(inp) {
+  var match, key, cons, types, type = typeof inp;
 
         if (type === 'object' && !inp) {
           return 'null';
