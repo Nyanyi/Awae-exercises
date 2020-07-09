@@ -17,7 +17,7 @@
 
   `arp-scan 172.16.113.0/24`
 
-![arp_scan](/Users/nyanyi/Pictures/awae/pipe/arp_scan.png)
+![arp_scan](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/arp_scan.png)
 
 La máquina tiene la dirección IP: 172.16.113.51
 
