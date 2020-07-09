@@ -69,28 +69,26 @@ La máquina tiene la dirección IP: 172.16.113.51
 
 ### Análisis de la web
 
-- Análisis de la funcionalidad de la página: En la pagina únicamente hay una funcionalidad.
+- En la página únicamente hay una funcionalidad.
 
-![funcionaliad](/Users/nyanyi/Pictures/awae/pipe/funcionaliad.png)
+![funcionaliad](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/funcionaliad.png)
 
-- El tráfico que genera es el siguiente:
+- El tráfico que se genera es el siguiente:
 
   `O:4:"Info":4:{s:2:"id";i:1;s:9:"firstname";s:4:"Rene";s:7:"surname";s:8:"Margitte";s:7:"artwork";s:23:"The Treachery of Images";}`
 
-  ![request](/Users/nyanyi/Pictures/awae/pipe/request.png)
+  ![request](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/request.png)
 
 - Si se analiza el flujo de la navegación:
 
-  ![scriptz](/Users/nyanyi/Pictures/awae/pipe/scriptz.png)
+  ![scriptz](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/scriptz.png)
 
 - Se observa un nuevo directorio: scriptz
 
   - El contenido del directorio es:
 
-  ![scriptz_direct](/Users/nyanyi/Pictures/awae/pipe/scriptz_direct.png)
-
-  
-
+  ![scriptz_direct](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/scriptz_direct.png)
+ 
 ### Análisis de los ficheros
 
 - Fichero log.php.bak
@@ -131,11 +129,11 @@ La máquina tiene la dirección IP: 172.16.113.51
   ?>
   ```
 
-  A grandes rasgos, la funcionalidad de este script es crear un fichero y grabar en el determinados datos.
+  A grandes rasgos, la funcionalidad de este script es crear un fichero y grabar en él determinados datos.
 
 - Fichero php.js
 
-![php_js](/Users/nyanyi/Pictures/awae/pipe/php_js.png)
+![php_js](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/php_js.png)
 
 En base a los comentarios se comprueba que básicamente este script se utiliza para serializar un objeto PHP
 
