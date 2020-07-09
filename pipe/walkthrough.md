@@ -330,4 +330,5 @@ Y se obtiene el objeto php serializado:
 
 A continuación se realiza lo siguiente:
 
+1. En la petición POST/index.php se cambia el valor del parámetro "param" por el del objeto serializado:
 
