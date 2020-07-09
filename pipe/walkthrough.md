@@ -27,7 +27,7 @@ La máquina tiene la dirección IP: 172.16.113.51
 
   `nmap -v -T4 -sV -p- --open 172.16.113.151`
 
-![nmap](/Users/nyanyi/Pictures/awae/pipe/nmap.png)
+![nmap](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/nmap.png)
 
 - De los servicios que se publican los más interesantes son:
 
@@ -40,7 +40,7 @@ La máquina tiene la dirección IP: 172.16.113.51
 
 - Al acceder a la aplicación web se detecta que esta protegida por una auth basic:
 
- 
+ ![auth_basic](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/auth_basic.png)
 
 - En este punto, se pueden llevar a cabo varios ataques:
 
@@ -60,14 +60,10 @@ La máquina tiene la dirección IP: 172.16.113.51
 
 - Bypass:
 
-  ![bypass_auth](/Users/nyanyi/Pictures/awae/pipe/bypass_auth.png)
+  ![bypass_auth](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/bypass_auth.png)
 
 - En el error 401 se indicaba que el realm era "index.php". Se realiza una prueba teniendo en cuenta el bypass de auth:
-
-  cvv
-  
-
- 
+ ![200_0k](https://github.com/Nyanyi/Awae-exercises/blob/master/pipe/imagenes/200_0k.png)
 
 ## Fase 2: Análisis de Vulnerabilidades
 
